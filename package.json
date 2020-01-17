@@ -1,0 +1,29 @@
+{
+  "name": "wasm-game-of-life",
+  "version": "1.0.0",
+  "description": "John Conway's Game of Life written in rust",
+  "main": "./www/bootstrap.js",
+  "scripts": {
+    "start": "npm run start --prefix ./www",
+    "build": "npm run build --prefix ./www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arcia125/wasm-game-of-life.git"
+  },
+  "keywords": [
+    "wasm",
+    "rust",
+    "javascript",
+    "canvas",
+    "john",
+    "conway",
+    "game of life"
+  ],
+  "author": "Kevin Hallett",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Arcia125/wasm-game-of-life/issues"
+  },
+  "homepage": "https://github.com/Arcia125/wasm-game-of-life#readme"
+}

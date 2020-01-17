@@ -1,6 +1,5 @@
 extern crate wasm_bindgen;
 
-use std::fmt;
 use wasm_bindgen::prelude::*;
 
 
@@ -79,8 +78,6 @@ impl Universe {
   }
 
   pub fn new(width: u32, height: u32) -> Universe {
-    // let width = 64;
-    // let height = 64;
     let cells = (0..width * height)
       .map(|i| {
         if i % 2 == 0 || i % 7 == 0 {
@@ -100,11 +97,10 @@ impl Universe {
 
   pub fn toggle_cell(&mut self, row: u32, column: u32) {
     let index = self.get_index(row, column);
-    self.cells[index] = if self.cells[index] == Cell::Dead { Cell::Alive } else { Cell:: Dead };
-  }
-
-  pub fn render(&self) -> String {
-    self.to_string()
+    self.cells[index] = match self.cells[index] {
+      Cell::Dead => Cell::Alive,
+      Cell::Alive => Cell::Dead 
+    };
   }
 
   pub fn width(&self) -> u32 {
@@ -117,19 +113,5 @@ impl Universe {
 
   pub fn cells(&self) -> *const Cell {
     self.cells.as_ptr()
-  }
-}
-
-impl fmt::Display for Universe {
-  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-    for line in self.cells.as_slice().chunks(self.width as usize) {
-      for &cell in line {
-        let symbol = if cell == Cell::Dead { '◻' } else { '◼' };
-        write!(f, "{}", symbol)?;
-      }
-
-      write!(f, "\n")?;
-    }
-    Ok(())
   }
 }

@@ -19,10 +19,16 @@
   "author": "Kevin Hallett <kevinmhallett@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "babel-loader": "^8.0.6",
+    "copy-webpack-plugin": "^5.0.0",
     "wasm-game-of-life": "file:../pkg",
-    "webpack": "^4.29.3",
+    "webpack": "^4.41.5",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5",
-    "copy-webpack-plugin": "^5.0.0"
+    "webpack-dev-server": "^3.1.5"
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3"
   }
 }
