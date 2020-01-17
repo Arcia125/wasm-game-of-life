@@ -1,0 +1,14 @@
+[package]
+name = "wasm-game-of-life"
+version = "0.1.0"
+authors = ["Kevin Hallett <kevinmhallett@gmail.com>"]
+description = "John conway's game of life using wasm."
+license = "MIT/Apache-2.0"
+repository = "https://github.com/Arcia125/wasm-game-of-life"
+edition = "2018"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wasm-bindgen = "0.2"
