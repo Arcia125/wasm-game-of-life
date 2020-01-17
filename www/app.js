@@ -28,7 +28,11 @@ class App {
       x: event.offsetX / (CELL_SIZE + 1),
       y: event.offsetY / (CELL_SIZE + 1),
     };
-    State.universe.toggle_cell(coords.y, coords.x);
+    if (event.ctrlKey) {
+      State.universe.add_glider(coords.y, coords.x);
+    } else {
+      State.universe.toggle_cell(coords.y, coords.x);
+    }
     this.draw();
   };
 

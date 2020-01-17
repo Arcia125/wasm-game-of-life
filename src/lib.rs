@@ -44,6 +44,13 @@ impl Universe {
     }
     count
   }
+
+  fn _toggle_cell(&mut self, index: usize) {
+    self.cells[index] = match self.cells[index] {
+      Cell::Dead => Cell::Alive,
+      Cell::Alive => Cell::Dead 
+    };
+  }
 }
 
 #[wasm_bindgen]
@@ -97,10 +104,15 @@ impl Universe {
 
   pub fn toggle_cell(&mut self, row: u32, column: u32) {
     let index = self.get_index(row, column);
-    self.cells[index] = match self.cells[index] {
-      Cell::Dead => Cell::Alive,
-      Cell::Alive => Cell::Dead 
-    };
+    self._toggle_cell(index);
+  }
+
+  pub fn add_glider(&mut self, row: u32, column: u32) {
+    let corner = self.get_index(row, column);
+    let cell_indices = [corner, self.get_index(row + 1, column + 1), self.get_index(row + 1, column + 2), self.get_index(row + 2, column), self.get_index(row + 2, column + 1)];
+    for index in cell_indices.iter() {
+      self.cells[*index] = Cell::Alive;
+    }
   }
 
   pub fn width(&self) -> u32 {
