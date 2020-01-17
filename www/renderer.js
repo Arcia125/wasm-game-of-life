@@ -31,6 +31,15 @@ class Renderer {
     this.ctx.stroke();
   }
 
+  drawCell(row, col) {
+    this.ctx.fillRect(
+      col * (CELL_SIZE + 1) + 1,
+      row * (CELL_SIZE + 1) + 1,
+      CELL_SIZE,
+      CELL_SIZE
+    );
+  }
+
   drawCells(gridHeight, gridWidth) {
     const cellsPtr = State.universe.cells();
     const cells = new Uint8Array(
@@ -41,19 +50,30 @@ class Renderer {
 
     this.ctx.beginPath();
 
+    let livingCells = [];
+
+    /**
+     * Setting fillStyle is an expensive operation,
+     * this first set of loops draws all of the dead cells
+     * first while tracking the coords of living cells.
+     */
+    this.ctx.fillStyle = DEAD_COLOR;
     for (let row = 0; row < gridHeight; row++) {
       for (let col = 0; col < gridWidth; col++) {
         const index = getIndex(row, col, gridWidth);
-        this.ctx.fillStyle =
-          cells[index] === Cell.Dead ? DEAD_COLOR : ALIVE_COLOR;
 
-        this.ctx.fillRect(
-          col * (CELL_SIZE + 1) + 1,
-          row * (CELL_SIZE + 1) + 1,
-          CELL_SIZE,
-          CELL_SIZE
-        );
+        if (cells[index] === Cell.Dead) {
+          this.drawCell(row, col);
+        } else {
+          livingCells.push([row, col]);
+        }
       }
+    }
+
+    // Loop over living cell coordinates and draw them.
+    this.ctx.fillStyle = ALIVE_COLOR;
+    for (let [row, col] of livingCells) {
+      this.drawCell(row, col);
     }
 
     this.ctx.stroke();
