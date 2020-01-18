@@ -28,7 +28,7 @@ impl Universe {
     (row * self.width + column) as usize
   }
 
-fn live_neighbor_count(&self, row: u32, column: u32) -> u8 {
+  fn live_neighbor_count(&self, row: u32, column: u32) -> u8 {
     let mut count = 0;
 
     let north = if row == 0 {
@@ -80,7 +80,7 @@ fn live_neighbor_count(&self, row: u32, column: u32) -> u8 {
     count += self.cells[se] as u8;
 
     count
-}
+  }
 
   fn _toggle_cell(&mut self, index: usize) {
     self.cells[index] = match self.cells[index] {
