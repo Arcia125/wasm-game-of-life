@@ -12,8 +12,18 @@ class State {
   }
 
   static tick() {
-    State.universe.tick();
-    State.lastTick = Date.now();
+    // Once speed gets over the threshold, extra ticks are added to further increase speed
+    const threshold = 100;
+    const extraTicks = Math.ceil(Math.max((this.speed - threshold) / 25, 1));
+    for (let i = 0; i < extraTicks; i++) {
+      State.universe.tick();
+      State.lastTick = Date.now();
+    }
+  }
+
+  static clear() {
+    const [gridWidth, gridHeight] = GRID_SIZE;
+    State.universe = Universe.empty(gridWidth, gridHeight);
   }
 }
 

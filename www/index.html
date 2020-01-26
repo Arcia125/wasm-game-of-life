@@ -62,12 +62,17 @@
     <canvas id="life-canvas"></canvas>
     <div class="controls">
       <button id="reset">reset</button>
+      <button id="clear">clear</button>
       <button id="play-pause">pause</button>
       <button id="step">step</button>
       <div class="input-group">
         <label for="speed">Speed</label>
-        <input id="speed" type="range" min="0" max="100" />
+        <input id="speed" type="range" min="0" max="200" />
       </div>
+      <select id="render-select">
+        <option value="webgl">webgl</option>
+        <option value="2d">canvas</option>
+      </select>
     </div>
     <script src="./bootstrap.js"></script>
   </body>

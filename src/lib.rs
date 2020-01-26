@@ -4,11 +4,6 @@ use wasm_bindgen::prelude::*;
 
 
 #[wasm_bindgen]
-extern {
-    pub fn alert(s: String);
-}
-
-#[wasm_bindgen]
 #[repr(u8)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Cell {
@@ -137,6 +132,18 @@ impl Universe {
         height,
         cells,
       }
+  }
+
+  pub fn empty(width: u32, height: u32) -> Universe {
+    let cells = (0..width * height).map(|_i| {
+      Cell::Dead
+    }).collect();
+
+    Universe {
+      width,
+      height,
+      cells
+    }
   }
 
   pub fn toggle_cell(&mut self, row: u32, column: u32) {

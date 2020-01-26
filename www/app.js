@@ -1,16 +1,18 @@
 import { UI } from './ui';
 import { State } from './state';
-import { CELL_SIZE } from './settings';
+import { CELL_SIZE, INTERNAL_RENDERER } from './settings';
 import { Renderer } from './renderer';
 
 class App {
   gridHeight = null;
   gridWidth = null;
-  renderer = new Renderer(UI.ctx);
+  renderer = null;
   constructor() {
-    UI.speedInput.value = State.speed;
-    this.registerEventHandlers();
+    this.renderer = new Renderer(UI.canvas, INTERNAL_RENDERER);
     this.init();
+    UI.speedInput.value = State.speed;
+    UI.renderSelect.value = INTERNAL_RENDERER;
+    this.registerEventHandlers();
   }
 
   init() {
@@ -54,6 +56,17 @@ class App {
     this.pause();
   };
 
+  handleClickClear = () => {
+    State.clear();
+    this.draw();
+  };
+
+  handleChangeRenderer = event => {
+    UI.newCanvas();
+    this.renderer = new Renderer(UI.canvas, event.target.value);
+    this.draw();
+  };
+
   registerEventHandlers() {
     UI.onClickCanvas(this.handleCanvasClick);
 
@@ -64,6 +77,10 @@ class App {
     UI.onChangeSpeed(this.handleChangeSpeed);
 
     UI.onClickResetButton(this.handleClickReset);
+
+    UI.onClickClearButton(this.handleClickClear);
+
+    UI.onSelectRenderer(this.handleChangeRenderer);
   }
 
   renderLoop = () => {
